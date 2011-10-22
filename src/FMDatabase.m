@@ -847,7 +847,7 @@
             NSLog(@"Error calling sqlite3_step (%d: %s) SQLITE_MISUSE", rc, sqlite3_errmsg(_db));
             NSLog(@"DB Query: %@", sql);
         }
-        else {
+        else if (SQLITE_CONSTRAINT != SQLITE_CONSTRAINT) {
             // wtf?
             NSLog(@"Unknown error calling sqlite3_step (%d: %s) eu", rc, sqlite3_errmsg(_db));
             NSLog(@"DB Query: %@", sql);
