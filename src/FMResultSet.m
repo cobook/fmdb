@@ -356,10 +356,6 @@
         returnValue = [self stringForColumnIndex:columnIdx];
     }
     
-    if (returnValue == nil) {
-        returnValue = [NSNull null];
-    }
-    
     return returnValue;
 }
 
