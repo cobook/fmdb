@@ -847,7 +847,7 @@
             NSLog(@"Error calling sqlite3_step (%d: %s) SQLITE_MISUSE", rc, sqlite3_errmsg(_db));
             NSLog(@"DB Query: %@", sql);
         }
-        else if (SQLITE_CONSTRAINT != SQLITE_CONSTRAINT) {
+        else if (SQLITE_CONSTRAINT != rc) {
             // wtf?
             NSLog(@"Unknown error calling sqlite3_step (%d: %s) eu", rc, sqlite3_errmsg(_db));
             NSLog(@"DB Query: %@", sql);
@@ -882,7 +882,7 @@
         closeErrorCode = sqlite3_finalize(pStmt);
     }
     
-    if (closeErrorCode != SQLITE_OK) {
+    if (closeErrorCode != SQLITE_OK && closeErrorCode != SQLITE_CONSTRAINT) {
         NSLog(@"Unknown error finalizing or resetting statement (%d: %s)", closeErrorCode, sqlite3_errmsg(_db));
         NSLog(@"DB Query: %@", sql);
     }
