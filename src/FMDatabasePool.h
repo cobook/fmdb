@@ -55,6 +55,7 @@
 
 @interface NSObject (FMDatabasePoolDelegate)
 
+- (void)databasePool:(FMDatabasePool*)pool didCreateDatabase:(FMDatabase*)database;
 - (BOOL)databasePool:(FMDatabasePool*)pool shouldAddDatabaseToPool:(FMDatabase*)database;
 
 @end

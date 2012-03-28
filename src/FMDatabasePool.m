@@ -75,6 +75,8 @@
     __block FMDatabase *db;
     
     [self executeLocked:^() {
+        BOOL isNew = NO;
+      
         db = [_databaseInPool lastObject];
         
         if (db) {
@@ -92,11 +94,15 @@
                 }
             }
             
-            db = [FMDatabase databaseWithPath:_path];
+            db = [FMDatabase databaseWithPath:_path];          
+            isNew = YES;
         }
         
         //This ensures that the db is opened before returning
         if ([db open]) {
+            if (isNew && [_delegate respondsToSelector:@selector(databasePool:didCreateDatabase:)]) {
+                [_delegate databasePool:self didCreateDatabase:db];
+            }
             if ([_delegate respondsToSelector:@selector(databasePool:shouldAddDatabaseToPool:)] && ![_delegate databasePool:self shouldAddDatabaseToPool:db]) {
                 [db close];
                 db = 0x00;
